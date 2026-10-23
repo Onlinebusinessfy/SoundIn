@@ -1,5 +1,16 @@
 package com.samuel.soundin.ui.screens
 
-fun LoginScreen(){
+import androidx.compose.material3.Snackbar
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 
+@Composable
+fun LoginScreen(
+    onNavigateToRegister: () -> Unit
+){
+    // Snackbar state -- lives here
+    val snackbarHostState = remember { SnackbarHostState() }
+    val scope = rememberCoroutineScope ()
 }
