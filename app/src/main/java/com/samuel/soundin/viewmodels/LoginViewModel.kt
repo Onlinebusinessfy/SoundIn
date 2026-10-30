@@ -1,4 +1,48 @@
 package com.samuel.soundin.viewmodels
 
-class LoginViewModel {
+import androidx.lifecycle.ViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+
+
+class LoginViewModel: ViewModel() {
+    //private state -- only this class can modify it
+    private val _email = MutableStateFlow(value = "")
+    private val _password = MutableStateFlow(value = "")
+    private val _rememberSession = MutableStateFlow(value = false)
+    private val _emailError = MutableStateFlow(value = false)
+    private val _passwordError = MutableStateFlow(value = false)
+
+    //public state - the UI can observe these, but not modify them
+    val email: StateFlow<String> = _email.asStateFlow()
+    val password: StateFlow<String> = _password.asStateFlow()
+    val rememberSession: StateFlow<Boolean> = _rememberSession.asStateFlow()
+    val emailError: StateFlow<Boolean> = _emailError.asStateFlow()
+    val passwordError: StateFlow<Boolean> = _passwordError.asStateFlow()
+
+    // update functions -- only this class can modify state
+    fun onEmailChange(newEmail: String){
+        _email.value = newEmail
+        _emailError.value = false
+    }
+
+    fun onPasswordChange(newPassword: String){
+        _password.value = newPassword
+        _passwordError.value = false
+    }
+
+    fun onSessionChange(newRememberSession: Boolean){
+        _rememberSession.value = newRememberSession
+    }
+
+    fun validateAndLogin(): Boolean {
+        val isEmailValid = _email.value.contains("@") && _email.value.contains(".")
+
+        val isPasswordValid = _password.value.length > 6
+        _emailError.value = !isEmailValid
+        _passwordError.value = !isPasswordValid
+
+        return isEmailValid && isPasswordValid
+    }
 }
