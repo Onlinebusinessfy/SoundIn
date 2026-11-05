@@ -11,16 +11,24 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import androidx.savedstate.savedState
 import com.samuel.soundin.ui.components.BottomNavigationBar
+import com.samuel.soundin.ui.models.Playlist
 import com.samuel.soundin.ui.navigation.SoundInRoutes
+import com.samuel.soundin.viewmodels.UserSessionViewModel
 
 @Composable
-fun MainScreen(){
+fun MainScreen(
+    sessionViewModel: UserSessionViewModel,
+    onLogOut: () -> Unit,
+    onNavigationToPlaylistDetail: (Playlist) -> Unit
+){
     val navController = rememberNavController()
     val currentBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = currentBackStackEntry?.destination?.route
@@ -47,9 +55,23 @@ fun MainScreen(){
             startDestination = SoundInRoutes.LIBRARY,
             modifier = Modifier.padding(paddingValues)
         ){
-            composable (SoundInRoutes.LIBRARY){ LibraryScreen() }
+            composable (SoundInRoutes.LIBRARY){
+                LibraryScreen(
+                    // OnNavigateToPlaylistDetail = onNavigationToPlaylistDetail
+                )
+            }
             composable (SoundInRoutes.SEARCH){ SearchScreen() }
-            composable (SoundInRoutes.PROFILE){ ProfileScreen() }
+            composable (SoundInRoutes.PROFILE){
+                ProfileScreen(
+                    sessionViewModel = sessionViewModel,
+                    onLogOut = onLogOut
+                ) }
+            composable (
+                SoundInRoutes.PLAYLIST_DETAIL,
+                arguments = listOf(navArgument("playlistId"){type = NavType.IntType})
+            ){ backStackEntry ->
+                val playlistId = backStackEntry.arguments?.getInt("playlistId") ?: 0
+            }
         }
     }
 }

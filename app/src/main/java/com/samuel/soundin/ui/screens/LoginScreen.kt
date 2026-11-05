@@ -53,6 +53,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.samuel.soundin.R
 import com.samuel.soundin.viewmodels.LoginViewModel
+import com.samuel.soundin.viewmodels.UserSessionViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -60,6 +61,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun LoginScreen(
     viewModel: LoginViewModel = viewModel(),
+    sessionViewModel: UserSessionViewModel,
     onNavigateToRegister: () -> Unit,
     onLoginSuccess: () -> Unit
 ){
