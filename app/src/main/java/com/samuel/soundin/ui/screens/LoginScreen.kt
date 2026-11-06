@@ -100,11 +100,21 @@ fun LoginScreen(
                 val isValidLogin = viewModel.validateAndLogin()
                 scope.launch {
                     if (isValidLogin) {
+                        val userEmail = email
+                        val userName = email.substringBefore("@")
+
+                        sessionViewModel.login(
+                            name = userName,
+                            email = userEmail
+                        )
+
                         snackbarHostState.showSnackbar(
                             message = "Welcome to SoundIn",
                             actionLabel = "Dismiss"
                         )
+
                         onLoginSuccess()
+
                     } else {
                         snackbarHostState.showSnackbar(
                             message = "Please review the marked text fields",

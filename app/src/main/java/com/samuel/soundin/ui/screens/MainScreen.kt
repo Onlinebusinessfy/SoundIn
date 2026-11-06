@@ -64,8 +64,9 @@ fun MainScreen(
             composable (SoundInRoutes.PROFILE){
                 ProfileScreen(
                     sessionViewModel = sessionViewModel,
-                    onLogOut = onLogOut
-                ) }
+                    onLogout = onLogOut
+                )
+            }
             composable (
                 SoundInRoutes.PLAYLIST_DETAIL,
                 arguments = listOf(navArgument("playlistId"){type = NavType.IntType})

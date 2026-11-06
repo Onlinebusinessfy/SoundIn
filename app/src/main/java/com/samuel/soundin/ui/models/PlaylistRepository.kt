@@ -25,7 +25,7 @@ object PlaylistRepository {
         Song(6, "Master of Puppets","Metallica",      515, 6)
     )
 
-    val playlist: StateFlow<List<Playlist>> = _playlists.asStateFlow()
+    val playlists: StateFlow<List<Playlist>> = _playlists.asStateFlow()
 
     // fun to update the playlist
     fun toggleFavorite(playlist: Playlist){
