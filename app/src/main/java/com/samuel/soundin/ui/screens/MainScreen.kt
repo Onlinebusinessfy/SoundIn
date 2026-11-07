@@ -57,7 +57,7 @@ fun MainScreen(
         ){
             composable (SoundInRoutes.LIBRARY){
                 LibraryScreen(
-                    // OnNavigateToPlaylistDetail = onNavigationToPlaylistDetail
+                    onNavigateToPlaylistDetail = onNavigationToPlaylistDetail
                 )
             }
             composable (SoundInRoutes.SEARCH){ SearchScreen() }
@@ -66,12 +66,6 @@ fun MainScreen(
                     sessionViewModel = sessionViewModel,
                     onLogout = onLogOut
                 )
-            }
-            composable (
-                SoundInRoutes.PLAYLIST_DETAIL,
-                arguments = listOf(navArgument("playlistId"){type = NavType.IntType})
-            ){ backStackEntry ->
-                val playlistId = backStackEntry.arguments?.getInt("playlistId") ?: 0
             }
         }
     }

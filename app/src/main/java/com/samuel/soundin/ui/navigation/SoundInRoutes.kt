@@ -7,5 +7,5 @@ object SoundInRoutes {
     const val LIBRARY = "library"
     const val SEARCH = "search"
     const val PROFILE = "profile"
-    const val PLAYLIST_DETAIL= "playlist_detail/{playlistId}"
+    const val PLAYLIST_DETAIL = "playlistDetail/{playlistId}"
 }
